@@ -70,6 +70,9 @@ setopt prompt_subst
 # プロンプトの右側にメソッドの結果を表示させる
 RPROMPT='`rprompt-git-current-branch`'
 
+# alias
+alias t='tmux'
+
 # fzf設定
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'

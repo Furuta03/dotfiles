@@ -16,8 +16,6 @@ Plug 'tomasr/molokai'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'alvan/vim-closetag'
-Plug 'scrooloose/nerdtree'
-Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'vim-airline/vim-airline'
@@ -45,10 +43,6 @@ set smartcase " 検索パターンに大文字を含んでいたら大文字小�
 set hlsearch " 検索結果をハイライト
 set backspace=indent,eol,start " backSpaceをinsertModeで有効に
 
-set number
-set cursorline
-set cursorcolumn
-
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
 set number " 行番号を表示
 set cursorline " カーソルラインをハイライト
@@ -69,39 +63,21 @@ let g:indent_guides_enable_on_vim_startup = 1 "インデント可視化
 imap { {}<LEFT>
 imap [ []<LEFT>
 imap ( ()<LEFT>
-noremap :tree :NERDTree
 noremap <C-z> $
+nnoremap ss :<C-u>sp<CR><C-w>j
+nnoremap sv :<C-u>vs<CR><C-w>l
 inoremap <TAB> <C-n>
-
-" 補完用plugin:deopleteの設定------------------------------
-"pythonの自動補完プラグイン
-Plug 'deoplete-plugins/deoplete-jedi'
-"Vim用自動補完プラグイン
-Plug 'Shougo/neco-vim'
 
 " fzf-----------------------------------------------------
 nnoremap <silent> fzf :GFiles<CR>
 nnoremap <silent> ls :Buffers<CR>
 
-" Syntasticの設定------------------------------------------
-" 構文エラーに>>を表示
-let g:syntastic_enable_signs = 1
-" 他のVimプラグインと競合するのを防ぐ
-let g:syntastic_always_populate_loc_list = 1
-" 構文エラーリストを非表示
-let g:syntastic_auto_loc_list = 0
-" ファイルを開いた時に構文エラーチェックを実行する
-let g:syntastic_check_on_open = 1
-" 「:wq」で終了する時も構文エラーチェックする
-let g:syntastic_check_on_wq = 1
-
-" Javascript用. 構文エラーチェックにESLintを使用
-let g:syntastic_javascript_checkers=['eslint']
-" Javascript以外は構文エラーチェックをしない
-let g:syntastic_mode_map = { 'mode': 'passive',
-      \ 'active_filetypes': ['javascript'],
-      \ 'passive_filetypes': [] }
-
+" lsp-----------------------------------------------------
+nnoremap <silent> pd :LspPeekDefinition<CR>
+nnoremap <silent> gd :LspDefinition<CR>
+nnoremap <silent> df :LspDocumentFormat<CR>
+nnoremap <silent> jd :LspTypeDefinition<CR>
+nnoremap <silent> rn :LspRename<CR>
 
 "molokaiの設定---------------------------------------------
 colorscheme molokai " カラースキームにmolokaiを設定する

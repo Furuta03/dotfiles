@@ -73,6 +73,10 @@ RPROMPT='`rprompt-git-current-branch`'
 # alias
 alias t='tmux'
 
+# nodenv
+export PATH="$HOME/.nodenv/bin:$PATH"
+eval "$(nodenv init -)"
+
 # fzf設定
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'

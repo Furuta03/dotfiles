@@ -45,7 +45,6 @@ set backspace=indent,eol,start " backSpaceをinsertModeで有効に
 
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
 set number " 行番号を表示
-set cursorline " カーソルラインをハイライト
 
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj
@@ -85,15 +84,6 @@ syntax enable " 構文に色を付ける
 
 "ステータスバーテーマの設定--------------------------------
 let g:airline_theme = 'deus'
-
-"カーソルラインを一定時間経過した時のみハイライトする------
-augroup vimrc-auto-cursorline
-  autocmd!
-  autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline
-  autocmd CursorHold,CursorHoldI * setlocal cursorline
-augroup END
-
-let mapleader = "\<Space>"
 
 "tig-explorerの設定----------------------------------------
 nnoremap <Leader>T :TigOpenCurrentFile<CR>

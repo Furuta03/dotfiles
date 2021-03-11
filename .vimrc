@@ -85,3 +85,10 @@ syntax enable " 構文に色を付ける
 
 "ステータスバーテーマの設定--------------------------------
 let g:airline_theme = 'deus'
+
+"カーソルラインを一定時間経過した時のみハイライトする------
+augroup vimrc-auto-cursorline
+  autocmd!
+  autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline
+  autocmd CursorHold,CursorHoldI * setlocal cursorline
+augroup END

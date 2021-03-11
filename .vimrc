@@ -8,7 +8,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-fugitive'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'pmsorhaindo/syntastic-local-eslint.vim'
@@ -23,6 +22,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'udalov/kotlin-vim'
+Plug 'iberianpig/tig-explorer.vim'
 call plug#end()
 
 set fileencoding=utf-8 " 保存時の文字コード
@@ -92,3 +92,14 @@ augroup vimrc-auto-cursorline
   autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline
   autocmd CursorHold,CursorHoldI * setlocal cursorline
 augroup END
+
+let mapleader = "\<Space>"
+
+"tig-explorerの設定----------------------------------------
+nnoremap <Leader>T :TigOpenCurrentFile<CR>
+nnoremap <Leader>t :TigOpenProjectRootDir<CR>
+nnoremap <Leader>g :TigGrep<CR>
+nnoremap <Leader>r :TigGrepResume<CR>
+vnoremap <Leader>g y:TigGrep<Space><C-R>"<CR>
+nnoremap <Leader>cg :<C-u>:TigGrep<Space><C-R><C-W><CR>
+nnoremap <Leader>b :TigBlame<CR>

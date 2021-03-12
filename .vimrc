@@ -75,7 +75,7 @@ nnoremap <silent> ls :Buffers<CR>
 nnoremap <silent> pd :LspPeekDefinition<CR>
 nnoremap <silent> gd :LspDefinition<CR>
 nnoremap <silent> df :LspDocumentFormat<CR>
-nnoremap <silent> jd :LspTypeDefinition<CR>
+"nnoremap <silent> jd :LspTypeDefinition<CR> なぜかこれをONにすると異様にカーソル下移動が重くなる
 nnoremap <silent> rn :LspRename<CR>
 
 "molokaiの設定---------------------------------------------

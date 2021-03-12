@@ -1,0 +1,19 @@
+# main view の左端にコミットIDを表示する
+set main-view = id date author:email-user commit-title:graph=yes,refs=yes
+
+# P で remote への push
+bind generic P ?git push -u %(remote) %(repo:head)
+
+# デフォルトの bind generic G !git gc を無効化する
+bind generic G none
+bind generic g move-first-line
+bind generic G move-last-line
+
+# D でブランチを削除 (マージ済みブランチのみ. 強制削除(branch -D) は `!`) (refs-view)
+bind refs    D      ?git branch -d %(branch)
+
+# x でマージ済みローカルブランチをすべて削除 (master/develop 除く)
+bind refs    x      ?sh -c "git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %"
+
+# D で stash を削除 (`!` と同じ) (stash-view)
+bind stash   D      ?git stash drop %(stash)

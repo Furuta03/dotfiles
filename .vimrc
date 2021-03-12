@@ -54,6 +54,7 @@ set history=5000 " 保存するコマンド履歴の数
 let g:closetag_filenames = '*.html,*.vue' " 閉じタグ自動補完
 
 let g:indent_guides_enable_on_vim_startup = 1 "インデント可視化
+let mapleader = "\<Space>" "LeaderキーにSpaceキーを指定
 
 imap { {}<LEFT>
 imap [ []<LEFT>

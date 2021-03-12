@@ -11,14 +11,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'pmsorhaindo/syntastic-local-eslint.vim'
-Plug 'tomasr/molokai'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'alvan/vim-closetag'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'udalov/kotlin-vim'
@@ -77,13 +73,6 @@ nnoremap <silent> gd :LspDefinition<CR>
 nnoremap <silent> df :LspDocumentFormat<CR>
 "nnoremap <silent> jd :LspTypeDefinition<CR> なぜかこれをONにすると異様にカーソル下移動が重くなる
 nnoremap <silent> rn :LspRename<CR>
-
-"molokaiの設定---------------------------------------------
-colorscheme molokai " カラースキームにmolokaiを設定する
-syntax enable " 構文に色を付ける
-
-"ステータスバーテーマの設定--------------------------------
-let g:airline_theme = 'deus'
 
 "tig-explorerの設定----------------------------------------
 nnoremap <Leader>T :TigOpenCurrentFile<CR>

@@ -41,6 +41,9 @@ set backspace=indent,eol,start " backSpaceをinsertModeで有効に
 
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
 set number " 行番号を表示
+set spell " スペルチェックON
+set spelllang+=cjk "日本語はスペルチェックの対象から外す
+set noswapfile "swpファイルを作成しない"
 
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj
@@ -66,12 +69,12 @@ inoremap <TAB> <C-n>
 
 " fzf-----------------------------------------------------
 nnoremap <silent> fzf :GFiles<CR>
-nnoremap <silent> ls :Buffers<CR>
+nnoremap <silent> bff :Buffers<CR>
 
 " lsp-----------------------------------------------------
-nnoremap <silent> pd :LspPeekDefinition<CR>
+"nnoremap <silent> pd :LspPeekDefinition<CR>
 nnoremap <silent> gd :LspDefinition<CR>
-nnoremap <silent> df :LspDocumentFormat<CR>
+"nnoremap <silent> df :LspDocumentFormat<CR>
 "nnoremap <silent> jd :LspTypeDefinition<CR> なぜかこれをONにすると異様にカーソル下移動が重くなる
 nnoremap <silent> rn :LspRename<CR>
 

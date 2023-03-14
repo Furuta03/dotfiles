@@ -20,12 +20,12 @@ function left-prompt {
   echo "${user}%B%n@%m%b${back_color}${path_b}${text_color}030m%}${sharp} ${dir}%~${reset}${text_color}052m%}${sharp}${reset}\n${text_color}${arrow}> ${reset}"
 }
 
-PROMPT=`left-prompt` 
+PROMPT=`left-prompt`
 
 # git ブランチ名を色付きで表示させるメソッド
 function rprompt-git-current-branch {
   local branch_name st branch_status
-  
+
   branch='\ue0a0'
   color='%{\e[38;5;' #  文字色を設定
   green='087m%}'
@@ -33,7 +33,7 @@ function rprompt-git-current-branch {
   yellow='227m%}'
   blue='033m%}'
   reset='%{\e[0m%}'   # reset
-  
+
   if [ ! -e  ".git" ]; then
     # git 管理されていないディレクトリは何も返さない
     return
@@ -63,19 +63,15 @@ function rprompt-git-current-branch {
   # ブランチ名を色付きで表示する
   echo "${branch_status}$branch_name${reset}"
 }
- 
+
 # プロンプトが表示されるたびにプロンプト文字列を評価、置換する
 setopt prompt_subst
- 
+
 # プロンプトの右側にメソッドの結果を表示させる
 RPROMPT='`rprompt-git-current-branch`'
 
 # alias
 alias t='tmux'
-
-# nodenv
-export PATH="$HOME/.nodenv/bin:$PATH"
-eval "$(nodenv init -)"
 
 # fzf設定
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -98,6 +94,18 @@ fd() {
   cd "$dir"
 }
 
+# ChatGPT wannaコマンド設定
+export OPENAI_API_KEY = "k-MsD6kUWBwN01o77LXD5eT3BlbkFJwk3rP8SHn2bCtFwnVgKY"
+
+# npmグローバルバッケージへのパス（Node: 18.8.0）
+export PATH=$PATH:~/.nodenv/versions/18.8.0/bin
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/furuta03/.sdkman"
 [[ -s "/Users/furuta03/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/furuta03/.sdkman/bin/sdkman-init.sh"
+
+# Added by Amplify CLI binary installer
+export PATH="$HOME/.amplify/bin:$PATH"
+
+# pyenvで指定したpythonをデフォルトで使用する
+eval "$(pyenv init --path)"

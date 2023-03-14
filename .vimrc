@@ -44,6 +44,7 @@ set number " 行番号を表示
 set spell " スペルチェックON
 set spelllang+=cjk "日本語はスペルチェックの対象から外す
 set noswapfile "swpファイルを作成しない"
+set belloff=all "beep音を消す"
 
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj

@@ -36,6 +36,7 @@ set softtabstop=2
 set autoindent
 set smartindent
 set shiftwidth=2
+autocmd FileType php setlocal tabstop=4 shiftwidth=4 expandtab
 
 " 検索の設定
 set incsearch
@@ -104,13 +105,17 @@ let g:ale_fixers = {
 \}
 let g:ale_php_phpcbf_standard = 'PSR2'
 let g:ale_php_phpcbf_executable = 'phpcbf'
-let g:ale_php_phpcbf_options = '--extensions=ctp'
+let g:ale_php_phpcs_options = '--ignore=PEAR.Commenting.*'
 let g:ale_html_prettier_options = '--parser html'
-let g:ale_history_log_output = 1
 let g:ale_fix_on_save = 1
-let g:ale_log_to_file = 1
+
+function! SetPhpCbfOptions()
+    let l:extension = expand('%:e')
+    let g:ale_php_phpcbf_options = printf('--extensions=%s', l:extension)
+endfunction
+
 au BufRead,BufNewFile *.ctp set filetype=php.html
-nnoremap <silent> <leader>f :ALEFix<CR>
+au BufRead,BufNewFile *.php,*.ctp call SetPhpCbfOptions()
 
 " tig-explorerの設定
 nnoremap <Leader>T :TigOpenCurrentFile<CR>

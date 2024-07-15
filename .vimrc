@@ -1,85 +1,118 @@
+" 文字エンコーディングの設定
 set encoding=utf-8
 set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 
+" プラグインのインストールと設定
 call plug#begin()
+Plug 'kamykn/spelunker.vim'
 Plug 'simeji/winresizer'
-Plug 'posva/vim-vue'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 Plug 'jiangmiao/auto-pairs'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'pmsorhaindo/syntastic-local-eslint.vim'
+Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'alvan/vim-closetag'
 Plug 'vim-airline/vim-airline'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'udalov/kotlin-vim'
 Plug 'iberianpig/tig-explorer.vim'
+Plug 'jwalton512/vim-blade'
 call plug#end()
 
-set fileencoding=utf-8 " 保存時の文字コード
-set fileencodings=ucs-boms,utf-8,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
-set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
-set ambiwidth=double " □や○文字が崩れる問題を解決
+" ファイルエンコーディングとフォーマットの設定
+set fileencoding=utf-8
+set fileencodings=ucs-boms,utf-8,euc-jp,cp932
+set fileformats=unix,dos,mac
+set ambiwidth=double
 
-set expandtab " タブ入力を複数の空白入力に置き換える
-set tabstop=2 " 画面上でタブ文字が占める幅
-set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
-set autoindent " 改行時に前の行のインデントを継続する
-set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
-set shiftwidth=2 " smartindentで増減する幅
+" インデントとタブの設定
+set expandtab
+set tabstop=2
+set softtabstop=2
+set autoindent
+set smartindent
+set shiftwidth=2
 
-set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
-set ignorecase " 検索パターンに大文字小文字を区別しない
-set smartcase " 検索パターンに大文字を含んでいたら大文字小文字を区別する
-set hlsearch " 検索結果をハイライト
-set backspace=indent,eol,start " backSpaceをinsertModeで有効に
+" 検索の設定
+set incsearch
+set ignorecase
+set smartcase
+set hlsearch
 
-set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
-set number " 行番号を表示
-set spell " スペルチェックON
-set spelllang+=cjk "日本語はスペルチェックの対象から外す
-set noswapfile "swpファイルを作成しない"
-set belloff=all "beep音を消す"
+" バックスペースの設定
+set backspace=indent,eol,start
 
-" 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
+" カーソル移動と表示設定
+set whichwrap=b,s,h,l,<,>,[,],~
+set number
+set nospell
+set noswapfile
+set belloff=all
+set re=0
+
+" カーソル移動のマッピング
 nnoremap j gj
 nnoremap k gk
 nnoremap <down> gj
 nnoremap <up> gk
 
-set wildmenu " コマンドモードの補完
-set history=5000 " 保存するコマンド履歴の数
+" コマンド補完と履歴
+set wildmenu
+set history=5000
 
-let g:closetag_filenames = '*.html,*.vue' " 閉じタグ自動補完
+" プラグインの設定
+let g:closetag_filenames = '*.html,*.vue'
+let g:indent_guides_enable_on_vim_startup = 1
+let mapleader = "\<Space>"
 
-let g:indent_guides_enable_on_vim_startup = 1 "インデント可視化
-let mapleader = "\<Space>" "LeaderキーにSpaceキーを指定
-
+" 括弧の自動補完
 imap { {}<LEFT>
 imap [ []<LEFT>
 imap ( ()<LEFT>
+
+" カーソル移動と編集のマッピング
 noremap <C-z> $
 nnoremap ss :<C-u>sp<CR><C-w>j
 nnoremap sv :<C-u>vs<CR><C-w>l
 inoremap <TAB> <C-n>
+nnoremap <C-w>H :vertical resize -5<CR>
+nnoremap <C-w>L :vertical resize +5<CR>
+nnoremap <C-w>J :resize +5<CR>
+nnoremap <C-w>K :resize -5<CR>
 
-" fzf-----------------------------------------------------
+" fzfのマッピング
 nnoremap <silent> fzf :GFiles<CR>
 nnoremap <silent> bff :Buffers<CR>
+nnoremap <C-g> :Rg<CR>
 
-" lsp-----------------------------------------------------
-"nnoremap <silent> pd :LspPeekDefinition<CR>
-nnoremap <silent> gd :LspDefinition<CR>
-"nnoremap <silent> df :LspDocumentFormat<CR>
-"nnoremap <silent> jd :LspTypeDefinition<CR> なぜかこれをONにすると異様にカーソル下移動が重くなる
+" lspのマッピング
+" nnoremap <silent> pd :LspPeekDefinition<CR>
+nnoremap <silent> gd :LspPeekDefinition<CR>
+nnoremap <silent> ww :LspDefinition<CR>
+" nnoremap <silent> df :LspDocumentFormat<CR>
+" nnoremap <silent> jd :LspTypeDefinition<CR> " これをONにすると異様にカーソル下移動が重くなる
 nnoremap <silent> rn :LspRename<CR>
 
-"tig-explorerの設定----------------------------------------
+" ALEの設定
+let g:ale_fixers = {
+\   'php': ['phpcbf'],
+\   'html': ['prettier'],
+\}
+let g:ale_php_phpcbf_standard = 'PSR2'
+let g:ale_php_phpcbf_executable = 'phpcbf'
+let g:ale_php_phpcbf_options = '--extensions=ctp'
+let g:ale_html_prettier_options = '--parser html'
+let g:ale_history_log_output = 1
+let g:ale_fix_on_save = 1
+let g:ale_log_to_file = 1
+au BufRead,BufNewFile *.ctp set filetype=php.html
+nnoremap <silent> <leader>f :ALEFix<CR>
+
+" tig-explorerの設定
 nnoremap <Leader>T :TigOpenCurrentFile<CR>
 nnoremap <Leader>t :TigOpenProjectRootDir<CR>
 nnoremap <Leader>g :TigGrep<CR>

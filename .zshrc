@@ -1,14 +1,16 @@
 export CLICOLOR=1
 
-echo hello.
+# brewのパスを通す
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-autoload -Uz compinit && compinit  # Gitの補完を有効化
+# anyenvの初期化
+eval "$(anyenv init -)"
 
 function left-prompt {
-  name_t='232m%}'      # user name text clolr
-  name_b='087m%}'    # user name background color
-  path_t='255m%}'     # path text clolr
-  path_b='089m%}'   # path background color
+  name_t='232m%}'  # user name text color
+  name_b='087m%}'  # user name background color
+  path_t='255m%}'  # path text color
+  path_b='089m%}'  # path background color
   arrow='087m%}'   # arrow color
   text_color='%{\e[38;5;'    # set text color
   back_color='%{\e[30;48;5;' # set background color
@@ -19,7 +21,6 @@ function left-prompt {
   dir="${back_color}${path_b}${text_color}${path_t}"
   echo "${user}%B%n@%m%b${back_color}${path_b}${text_color}030m%}${sharp} ${dir}%~${reset}${text_color}052m%}${sharp}${reset}\n${text_color}${arrow}> ${reset}"
 }
-
 PROMPT=`left-prompt`
 
 # git ブランチ名を色付きで表示させるメソッド
@@ -78,7 +79,6 @@ alias t='tmux'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 
-# fzf ブランチ切替
 fbr() {
   local branches branch
   branches=$(git branch -vv) &&
@@ -86,26 +86,9 @@ fbr() {
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
-# cd with fzf
 fd() {
   local dir
   dir=$(find ${1:-.} -path '*/\.*' -prune \
                   -o -type d -print 2> /dev/null | fzf +m) &&
   cd "$dir"
 }
-
-# ChatGPT wannaコマンド設定
-export OPENAI_API_KEY = "k-MsD6kUWBwN01o77LXD5eT3BlbkFJwk3rP8SHn2bCtFwnVgKY"
-
-# npmグローバルバッケージへのパス（Node: 18.8.0）
-export PATH=$PATH:~/.nodenv/versions/18.8.0/bin
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/furuta03/.sdkman"
-[[ -s "/Users/furuta03/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/furuta03/.sdkman/bin/sdkman-init.sh"
-
-# Added by Amplify CLI binary installer
-export PATH="$HOME/.amplify/bin:$PATH"
-
-# pyenvで指定したpythonをデフォルトで使用する
-eval "$(pyenv init --path)"

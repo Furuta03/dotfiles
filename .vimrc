@@ -21,6 +21,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'jwalton512/vim-blade'
+Plug 'github/copilot.vim'
 call plug#end()
 
 " ファイルエンコーディングとフォーマットの設定
@@ -36,7 +37,7 @@ set softtabstop=2
 set autoindent
 set smartindent
 set shiftwidth=2
-autocmd FileType php setlocal tabstop=4 shiftwidth=4 expandtab
+autocmd FileType php,html,blade setlocal tabstop=4 shiftwidth=4 expandtab
 
 " 検索の設定
 set incsearch
